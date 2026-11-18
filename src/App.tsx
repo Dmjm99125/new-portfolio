@@ -170,19 +170,8 @@ export default function App() {
               <div className="portrait-code">
                 <code>
                   <span>
-                    <b>const</b> Donna = () =&gt; (
+                    &lt;<mark>img</mark> src=<s>"/image.jpg"</s> alt=<s>"Donna"</s> /&gt;
                   </span>
-                  <span className="code-indent">
-                    &lt;<mark>img</mark>
-                  </span>
-                  <span className="code-indent-deep">
-                    src=<s>"/donna-profile.jpg"</s>
-                  </span>
-                  <span className="code-indent-deep">
-                    alt=<s>"Donna May J. Mesina"</s>
-                  </span>
-                  <span className="code-indent">/&gt;</span>
-                  <span>);</span>
                 </code>
                 <div className="portrait-output">
                   <div className="portrait-placeholder" aria-hidden="true">
@@ -190,11 +179,11 @@ export default function App() {
                     <small>
                       Add portrait to
                       <br />
-                      public/donna-profile.jpg
+                      public/image.jpg
                     </small>
                   </div>
                   <img
-                    src="/donna-profile.jpg"
+                    src="/image.jpg"
                     alt="Donna May J. Mesina"
                     onError={(event) => {
                       event.currentTarget.style.display = "none";
