@@ -1256,6 +1256,14 @@ h2 em {
   line-height: 1.7;
   max-width: 520px;
 }
+.contact-status-wrap {
+  margin-top: 22px;
+}
+.contact-status-pill {
+  background: rgba(255, 253, 248, 0.72);
+  border-color: rgba(32, 35, 31, 0.25);
+  margin-bottom: 0;
+}
 .email-link {
   align-items: center;
   border-bottom: 2px solid var(--ink);
@@ -1264,7 +1272,7 @@ h2 em {
   font-size: clamp(17px, 2vw, 26px);
   font-weight: 600;
   gap: 12px;
-  margin-top: 38px;
+  margin-top: 32px;
   padding-bottom: 4px;
   text-decoration: none;
 }

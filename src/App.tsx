@@ -97,7 +97,7 @@ export default function App() {
         <section className="hero section" id="top">
           <div className="hero-copy">
             <div className="status-pill">
-              <span /> Available for edtech collaborations
+              <span /> Open for teaching positions
             </div>
             <h1 className="hero-name">
               <span>I’m Donna</span>
@@ -536,6 +536,11 @@ export default function App() {
               I’d love to hear about your school, product, classroom challenge, or creative
               collaboration.
             </p>
+            <div className="contact-status-wrap">
+              <div className="status-pill contact-status-pill">
+                <span /> Available for edtech collaborations
+              </div>
+            </div>
             <a className="email-link" href="mailto:mesinadm32@gmail.com">
               mesinadm32@gmail.com <ArrowUpRight />
             </a>
