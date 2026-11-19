@@ -1,91 +1,18 @@
 import { useState } from "react";
+import CaseStudyModal from "./components/CaseStudyModal";
+import { ArrowUpRight, FileText, Github, LinkedIn, Menu } from "./components/Icons";
+import { projects } from "./data/projects";
 
-type IconProps = { className?: string };
+// When your resume is ready, add the PDF to `public/resume.pdf` and set this to `"/resume.pdf"` (or an external link).
+const RESUME_URL: string | null = null;
 
-function ArrowUpRight({ className = "" }: IconProps) {
-  return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path
-        d="M7 17 17 7M8 7h9v9"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
+function getInitialCaseSlug() {
+  if (typeof window === "undefined") {
+    return null;
+  }
+  const slug = new URLSearchParams(window.location.search).get("case");
+  return projects.some((project) => project.slug === slug && project.caseStudy) ? slug : null;
 }
-
-function Github({ className = "" }: IconProps) {
-  return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path
-        d="M15 22v-3.9c.04-1-.35-1.97-1.1-2.65 3.6-.4 7.38-1.77 7.38-8A6.24 6.24 0 0 0 19.62 3a5.8 5.8 0 0 0-.16-4s-1.3-.42-4.46 1.66a15.3 15.3 0 0 0-8 0C3.84-1.42 2.54-1 2.54-1a5.8 5.8 0 0 0-.16 4A6.24 6.24 0 0 0 .72 7.5c0 6.22 3.78 7.58 7.38 8-.74.67-1.13 1.63-1.1 2.62V22"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M7 19c-3 .92-3-1.5-4.2-2"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
-}
-
-function LinkedIn({ className = "" }: IconProps) {
-  return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path
-        d="M7 9v10M7 5.5v.01M11 19v-5.5A4.5 4.5 0 0 1 15.5 9h0a3.5 3.5 0 0 1 3.5 3.5V19M11 13V9"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
-}
-
-function Menu({ className = "" }: IconProps) {
-  return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path
-        d="M4 7h16M4 12h16M4 17h16"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
-}
-
-const projects = [
-  {
-    number: "01",
-    eyebrow: "Numeracy development",
-    title: "The Teachers",
-    description:
-      "A learning resource that turns foundational numeracy concepts into a clear, friendly digital experience for young learners.",
-    tags: ["Learning design", "HTML", "CSS"],
-    live: "https://maamjofas1.netlify.app/",
-    code: "https://github.com/Dmjm99125/theteachers",
-    variant: "yellow",
-  },
-  {
-    number: "02",
-    eyebrow: "Early childhood education",
-    title: "Ma’am Jo’s Classroom",
-    description:
-      "A thoughtful course project for EDUECE10, designed to organize classroom ideas and make educational content feel welcoming.",
-    tags: ["Early learning", "HTML", "CSS"],
-    live: "https://maamjofasmaganda1.netlify.app/",
-    code: "https://github.com/Dmjm99125/maamjofasmaganda",
-    variant: "lilac",
-  },
-];
 
 const stack = [
   { name: "HTML", detail: "Semantic foundations", mark: "< >" },
@@ -97,8 +24,36 @@ const stack = [
 
 export default function App() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [activeCaseSlug, setActiveCaseSlug] = useState<string | null>(getInitialCaseSlug);
+  const [resumeNoticeOpen, setResumeNoticeOpen] = useState(false);
 
   const closeMenu = () => setMenuOpen(false);
+
+  const syncCaseParam = (slug: string | null) => {
+    if (typeof window === "undefined") {
+      return;
+    }
+    const url = new URL(window.location.href);
+    if (slug) {
+      url.searchParams.set("case", slug);
+    } else {
+      url.searchParams.delete("case");
+    }
+    window.history.replaceState({}, "", url.toString());
+  };
+
+  const openCaseStudy = (slug: string) => {
+    setActiveCaseSlug(slug);
+    syncCaseParam(slug);
+  };
+
+  const closeCaseStudy = () => {
+    setActiveCaseSlug(null);
+    syncCaseParam(null);
+  };
+
+  const activeCaseProject =
+    projects.find((project) => project.slug === activeCaseSlug && project.caseStudy) ?? null;
 
   return (
     <div className="site-shell">
@@ -151,10 +106,35 @@ export default function App() {
               <a className="button button-dark" href="#projects">
                 See my work <ArrowUpRight />
               </a>
+              {RESUME_URL ? (
+                <a
+                  className="button button-outline"
+                  href={RESUME_URL}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <FileText /> Resume <ArrowUpRight />
+                </a>
+              ) : (
+                <button
+                  type="button"
+                  className="button button-outline"
+                  onClick={() => setResumeNoticeOpen((open) => !open)}
+                  aria-expanded={resumeNoticeOpen}
+                >
+                  <FileText /> Resume
+                </button>
+              )}
               <a className="text-link" href="#about">
                 More about me <span>↓</span>
               </a>
             </div>
+            {!RESUME_URL && resumeNoticeOpen && (
+              <p className="hero-resume-note" role="status">
+                Resume is currently being finalized — check back soon or{" "}
+                <a href="#contact">get in touch</a>.
+              </p>
+            )}
           </div>
 
           <div className="hero-visual" aria-label="A code editor displaying Donna's portrait">
@@ -217,9 +197,17 @@ export default function App() {
 
           <div className="project-grid">
             {projects.map((project) => (
-              <article className={`project-card project-${project.variant}`} key={project.title}>
+              <article
+                className={`project-card project-${project.variant}${project.featured ? " project-featured" : ""}`}
+                key={project.slug}
+              >
                 <div className="project-top">
-                  <span>{project.number}</span>
+                  <div className="project-top-meta">
+                    <span>{project.number}</span>
+                    {project.caseStudy && (
+                      <span className="project-case-tag">Flagship · Mini case study</span>
+                    )}
+                  </div>
                   <a
                     href={project.live}
                     target="_blank"
@@ -229,54 +217,137 @@ export default function App() {
                     <ArrowUpRight />
                   </a>
                 </div>
-                <div className="project-preview">
-                  {project.variant === "yellow" ? (
-                    <div className="math-sheet">
-                      <span className="mini-label">Let’s count!</span>
-                      <strong>4 + 3 = ?</strong>
-                      <div className="dots">
-                        <i />
-                        <i />
-                        <i />
-                        <i />
-                        <i />
-                        <i />
-                        <i />
+
+                <div className={project.featured ? "project-featured-body" : ""}>
+                  {project.image ? (
+                    <button
+                      type="button"
+                      className="project-preview project-preview-button"
+                      onClick={() => openCaseStudy(project.slug)}
+                      aria-label={`Read mini case study for ${project.title}`}
+                    >
+                      <div className="project-shot-window">
+                        <div className="window-bar">
+                          <i />
+                          <i />
+                          <i />
+                          <span>{project.live.replace(/^https?:\/\//, "").replace(/\/$/, "")}</span>
+                        </div>
+                        <img
+                          src={project.image}
+                          alt={`${project.title} project preview`}
+                          loading="lazy"
+                        />
                       </div>
-                    </div>
+                      <span className="project-preview-pill">
+                        Read mini case study <ArrowUpRight />
+                      </span>
+                    </button>
                   ) : (
-                    <div className="class-sheet">
-                      <div>
-                        <span>Learn</span>
-                        <span>Play</span>
-                        <span>Grow</span>
-                      </div>
-                      <strong>
-                        Every little step
-                        <br />
-                        is a big discovery.
-                      </strong>
-                      <div className="rainbow">
-                        <i />
-                        <i />
-                        <i />
-                      </div>
+                    <div className="project-preview">
+                      {project.variant === "yellow" ? (
+                        <div className="math-sheet">
+                          <span className="mini-label">Let’s count!</span>
+                          <strong>4 + 3 = ?</strong>
+                          <div className="dots">
+                            <i />
+                            <i />
+                            <i />
+                            <i />
+                            <i />
+                            <i />
+                            <i />
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="class-sheet">
+                          <div>
+                            <span>Learn</span>
+                            <span>Play</span>
+                            <span>Grow</span>
+                          </div>
+                          <strong>
+                            Every little step
+                            <br />
+                            is a big discovery.
+                          </strong>
+                          <div className="rainbow">
+                            <i />
+                            <i />
+                            <i />
+                          </div>
+                        </div>
+                      )}
                     </div>
                   )}
-                </div>
-                <div className="project-copy">
-                  <p className="eyebrow">{project.eyebrow}</p>
-                  <h3>{project.title}</h3>
-                  <p>{project.description}</p>
-                  <div className="project-footer">
-                    <div className="tag-list">
-                      {project.tags.map((tag) => (
-                        <span key={tag}>{tag}</span>
-                      ))}
+
+                  <div className="project-copy">
+                    <p className="eyebrow">{project.eyebrow}</p>
+                    {project.caseStudy ? (
+                      <h3>
+                        <button
+                          type="button"
+                          className="project-title-trigger"
+                          onClick={() => openCaseStudy(project.slug)}
+                        >
+                          {project.title}
+                        </button>
+                      </h3>
+                    ) : (
+                      <h3>{project.title}</h3>
+                    )}
+                    <p>{project.description}</p>
+
+                    <div className="project-footer">
+                      <div className="tag-list">
+                        {project.tags.map((tag) => (
+                          <span key={tag}>{tag}</span>
+                        ))}
+                      </div>
+                      <div className="project-actions">
+                        {project.caseStudy && (
+                          <button
+                            type="button"
+                            className="case-open-btn"
+                            onClick={() => openCaseStudy(project.slug)}
+                          >
+                            Read mini case study <ArrowUpRight />
+                          </button>
+                        )}
+                        <div className="project-links-row">
+                          {project.featured && (
+                            <a
+                              className="code-link live-link"
+                              href={project.live}
+                              target="_blank"
+                              rel="noreferrer"
+                            >
+                              <span className="live-dot" aria-hidden="true" /> Live demo{" "}
+                              <ArrowUpRight />
+                            </a>
+                          )}
+                          <a
+                            className="code-link"
+                            href={project.code}
+                            target="_blank"
+                            rel="noreferrer"
+                          >
+                            <Github /> Code
+                          </a>
+                          {project.extraLinks?.map((extra) => (
+                            <a
+                              key={extra.url}
+                              className="code-link"
+                              href={extra.url}
+                              target="_blank"
+                              rel="noreferrer"
+                            >
+                              <Github /> {extra.label}
+                            </a>
+                          ))}
+                        </div>
+                      </div>
                     </div>
-                    <a className="code-link" href={project.code} target="_blank" rel="noreferrer">
-                      <Github /> Code
-                    </a>
                   </div>
                 </div>
               </article>
@@ -415,6 +486,8 @@ export default function App() {
         <p>Designed with care. Built with curiosity.</p>
         <a href="#top">Back to top ↑</a>
       </footer>
+
+      <CaseStudyModal project={activeCaseProject} onClose={closeCaseStudy} />
     </div>
   );
 }
