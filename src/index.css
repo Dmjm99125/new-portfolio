@@ -266,18 +266,50 @@ h2 em {
   position: absolute;
 }
 
-.code-window {
+.portrait-card {
   background: #fbfaf6;
   border: 2px solid var(--ink);
-  border-radius: 12px;
+  border-radius: 14px;
   box-shadow: 13px 15px 0 rgba(32, 35, 31, 0.12);
   left: 12%;
   overflow: hidden;
   position: absolute;
-  top: 13%;
+  top: 12%;
   transform: rotate(-3deg);
   width: 76%;
   z-index: 2;
+}
+
+.portrait-card-bar {
+  align-items: center;
+  background: var(--green);
+  border-bottom: 1.5px solid var(--ink);
+  color: #eef5d2;
+  display: flex;
+  font-size: 10.5px;
+  font-weight: 700;
+  gap: 8px;
+  justify-content: space-between;
+  letter-spacing: 0.4px;
+  padding: 10px 14px;
+}
+
+.portrait-card-badge {
+  align-items: center;
+  display: inline-flex;
+  gap: 7px;
+}
+
+.portrait-card-badge i {
+  background: var(--lime);
+  border-radius: 50%;
+  height: 7px;
+  width: 7px;
+}
+
+.portrait-card-year {
+  color: rgba(255, 255, 255, 0.78);
+  font-weight: 600;
 }
 
 .window-bar {
@@ -300,31 +332,35 @@ h2 em {
   margin-left: auto;
 }
 
-.portrait-code {
+.portrait-frame {
   display: flex;
   flex-direction: column;
 }
 
-.portrait-code > code {
-  border-bottom: 1px solid var(--line);
-  display: block;
-  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size: clamp(8px, 0.9vw, 11.5px);
-  line-height: 1.4;
-  overflow: hidden;
-  padding: 12px 16px;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+.portrait-caption {
+  background: #fffdf8;
+  border-top: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 11px 15px;
 }
 
-.portrait-code s {
-  color: var(--green);
-  text-decoration: none;
+.portrait-caption-title {
+  color: var(--ink);
+  font-family: "Playfair Display", serif;
+  font-size: clamp(13px, 1.3vw, 16px);
+  font-style: italic;
+  font-weight: 600;
+  line-height: 1.25;
 }
-.portrait-code mark {
-  background: none;
-  color: #aa5b45;
-  padding: 0;
+
+.portrait-caption-sub {
+  color: #5d605b;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
 }
 
 .portrait-output {
@@ -399,30 +435,30 @@ h2 em {
   z-index: 4;
 }
 
-.tag-html {
-  left: -2%;
+.tag-ece {
+  left: -4%;
   top: 21%;
   transform: rotate(-9deg);
 }
-.tag-css {
-  right: 4%;
+.tag-esl {
+  right: 2%;
   top: 14%;
   transform: rotate(8deg);
 }
-.tag-js {
+.tag-play {
   bottom: 18%;
-  left: 5%;
+  left: 3%;
   transform: rotate(6deg);
 }
-.tag-react {
+.tag-kinder {
   bottom: 13%;
-  right: 10%;
+  right: 6%;
   transform: rotate(-6deg);
 }
-.tag-tanstack {
+.tag-edtech {
   background: var(--yellow);
   bottom: -1%;
-  left: 36%;
+  left: 40%;
   transform: rotate(3deg);
 }
 .spark {
@@ -1869,12 +1905,18 @@ footer > a:last-child {
   .hero-visual {
     width: 96%;
   }
-  .portrait-code > code {
-    font-size: clamp(6.8px, 1.95vw, 10px);
-    padding: 10px 12px;
+  .portrait-card-bar {
+    font-size: 9.5px;
+    padding: 8px 12px;
   }
-  .tag-tanstack {
-    left: 30%;
+  .portrait-caption {
+    padding: 9px 12px;
+  }
+  .portrait-caption-sub {
+    font-size: 9.5px;
+  }
+  .tag-edtech {
+    left: 37%;
   }
   .section-heading {
     align-items: start;

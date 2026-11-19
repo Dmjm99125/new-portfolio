@@ -105,14 +105,14 @@ export default function App() {
               <span>May J. Mesina</span>
             </h1>
             <p className="hero-lede">
-              An early childhood educator and edtech developer building thoughtful learning
-              experiences and approachable digital classrooms using <strong>HTML</strong>,{" "}
-              <strong>CSS</strong>, <strong>JavaScript</strong>, <strong>React</strong>, and{" "}
-              <strong>TanStack Start</strong>.
+              An <strong>early childhood educator</strong> and <strong>ESL teacher</strong> creating
+              joyful, play-based learning experiences where young learners thrive — with an edtech
+              background building classroom tools in HTML, CSS, JavaScript, React, and TanStack
+              Start.
             </p>
             <div className="hero-actions">
-              <a className="button button-dark" href="#projects">
-                See my work <ArrowUpRight />
+              <a className="button button-dark" href="#experience">
+                Teaching experience <ArrowUpRight />
               </a>
               {RESUME_URL ? (
                 <a
@@ -133,8 +133,8 @@ export default function App() {
                   <FileText /> Resume
                 </button>
               )}
-              <a className="text-link" href="#about">
-                More about me <span>↓</span>
+              <a className="text-link" href="#projects">
+                Classroom projects <span>↓</span>
               </a>
             </div>
             {!RESUME_URL && resumeNoticeOpen && (
@@ -145,22 +145,18 @@ export default function App() {
             )}
           </div>
 
-          <div className="hero-visual" aria-label="A code editor displaying Donna's portrait">
-            <div className="orbit orbit-one" />
-            <div className="orbit orbit-two" />
-            <div className="code-window">
-              <div className="window-bar">
-                <i />
-                <i />
-                <i />
-                <span>Donna.tsx</span>
+          <div
+            className="hero-visual"
+            aria-label="Portrait card highlighting Donna's early childhood education and ESL focus"
+          >
+            <div className="portrait-card">
+              <div className="portrait-card-bar">
+                <span className="portrait-card-badge">
+                  <i aria-hidden="true" /> Early Childhood &amp; ESL
+                </span>
+                <span className="portrait-card-year">Since 2018</span>
               </div>
-              <div className="portrait-code">
-                <code>
-                  <span>
-                    &lt;<mark>img</mark> src=<s>"/image.jpg"</s> alt=<s>"Donna"</s> /&gt;
-                  </span>
-                </code>
+              <div className="portrait-frame">
                 <div className="portrait-output">
                   <div className="portrait-placeholder" aria-hidden="true">
                     <span>DM</span>
@@ -178,13 +174,17 @@ export default function App() {
                     }}
                   />
                 </div>
+                <div className="portrait-caption">
+                  <span className="portrait-caption-title">Joyful learning through play</span>
+                  <span className="portrait-caption-sub">Kindergarten · ESL · EdTech</span>
+                </div>
               </div>
             </div>
-            <span className="float-tag tag-html">HTML</span>
-            <span className="float-tag tag-css">CSS</span>
-            <span className="float-tag tag-js">JS</span>
-            <span className="float-tag tag-react">React</span>
-            <span className="float-tag tag-tanstack">TanStack Start</span>
+            <span className="float-tag tag-ece">Early Childhood</span>
+            <span className="float-tag tag-esl">ESL Teacher</span>
+            <span className="float-tag tag-play">Play-Based</span>
+            <span className="float-tag tag-kinder">Kindergarten</span>
+            <span className="float-tag tag-edtech">EdTech</span>
             <div className="spark spark-one">✦</div>
             <div className="spark spark-two">✦</div>
           </div>
