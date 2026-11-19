@@ -1,6 +1,7 @@
 import { useState } from "react";
 import CaseStudyModal from "./components/CaseStudyModal";
 import { ArrowUpRight, FileText, Github, LinkedIn, Menu } from "./components/Icons";
+import { education, teachingFocus, workExperience } from "./data/background";
 import { projects } from "./data/projects";
 
 // When your resume is ready, add the PDF to `public/resume.pdf` and set this to `"/resume.pdf"` (or an external link).
@@ -78,6 +79,12 @@ export default function App() {
           </a>
           <a href="#stack" onClick={closeMenu}>
             Stack
+          </a>
+          <a href="#experience" onClick={closeMenu}>
+            Experience
+          </a>
+          <a href="#education" onClick={closeMenu}>
+            Education
           </a>
           <a className="nav-cta" href="#contact" onClick={closeMenu}>
             Let’s talk <ArrowUpRight />
@@ -435,6 +442,104 @@ export default function App() {
                 <strong>{item.name}</strong>
                 <p>{item.detail}</p>
               </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="experience section" id="experience">
+          <div className="section-heading section-heading-light">
+            <div>
+              <p className="eyebrow">Work experience</p>
+              <h2>
+                Teaching in
+                <br />
+                <em>practice.</em>
+              </h2>
+            </div>
+            <p>
+              Education-focused roles and instructional practice supporting young learners and
+              English language students.
+            </p>
+          </div>
+
+          <div className="experience-list">
+            {workExperience.map((item) => (
+              <article className="experience-card" key={`${item.role}-${item.organization}`}>
+                <div className="experience-meta">
+                  <span className="experience-index">{item.number} · Role</span>
+                  <span className="period-pill">
+                    <i aria-hidden="true" /> {item.period}
+                  </span>
+                </div>
+                <div className="experience-body">
+                  <div>
+                    <h3>{item.role}</h3>
+                    <p className="experience-org">{item.organization}</p>
+                  </div>
+                  <div className="experience-details">
+                    <p>{item.description}</p>
+                    <div className="tag-list">
+                      {item.tags.map((tag) => (
+                        <span key={tag}>{tag}</span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+
+          <div className="focus-block">
+            <p className="eyebrow focus-label">Teaching focus</p>
+            <div className="focus-grid">
+              {teachingFocus.map((focus) => (
+                <article className="focus-card" key={focus.title}>
+                  <span className="focus-index">{focus.number}</span>
+                  <h3>{focus.title}</h3>
+                  <p>{focus.description}</p>
+                  <div className="tag-list">
+                    {focus.tags.map((tag) => (
+                      <span key={tag}>{tag}</span>
+                    ))}
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="education section" id="education">
+          <div className="section-heading section-heading-light">
+            <div>
+              <p className="eyebrow">Education</p>
+              <h2>
+                Learning the
+                <br />
+                <em>craft.</em>
+              </h2>
+            </div>
+            <p>Academic foundations bridging computing technology and early childhood education.</p>
+          </div>
+
+          <div className="education-grid">
+            {education.map((item) => (
+              <article
+                className={`education-card education-${item.accent}`}
+                key={`${item.period}-${item.degree}`}
+              >
+                <div className="education-top">
+                  <span className="education-index">{item.number}</span>
+                  <span className="period-pill">{item.period}</span>
+                </div>
+                <h3>{item.degree}</h3>
+                <p className="education-institution">{item.institution}</p>
+                <p className="education-description">{item.description}</p>
+                <div className="tag-list">
+                  {item.tags.map((tag) => (
+                    <span key={tag}>{tag}</span>
+                  ))}
+                </div>
+              </article>
             ))}
           </div>
         </section>

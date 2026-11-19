@@ -966,6 +966,181 @@ h2 em {
   margin-top: 28px;
 }
 
+.section-heading-light .eyebrow {
+  color: var(--green);
+}
+.section-heading-light h2 em {
+  color: var(--green);
+}
+.section-heading-light > p {
+  color: #656862;
+}
+
+.experience,
+.education {
+  border-top: 1px solid var(--line);
+}
+
+.experience-list {
+  display: grid;
+  gap: 20px;
+}
+
+.experience-card {
+  background: #fffdf8;
+  border: 1.5px solid var(--ink);
+  border-radius: 18px;
+  box-shadow: 7px 9px 0 rgba(32, 35, 31, 0.08);
+  padding: 34px 38px;
+}
+
+.experience-meta,
+.education-top {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: space-between;
+}
+
+.experience-index,
+.education-index,
+.focus-index {
+  color: var(--green);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+
+.period-pill {
+  align-items: center;
+  background: var(--lime);
+  border: 1px solid rgba(32, 35, 31, 0.28);
+  border-radius: 999px;
+  color: var(--ink);
+  display: inline-flex;
+  font-size: 12px;
+  font-weight: 700;
+  gap: 7px;
+  padding: 5px 12px;
+}
+
+.period-pill i {
+  animation: pulse 2s infinite;
+  background: #54a368;
+  border-radius: 50%;
+  height: 7px;
+  width: 7px;
+}
+
+.experience-body {
+  align-items: start;
+  display: grid;
+  gap: 28px;
+  grid-template-columns: 0.85fr 1.15fr;
+  margin-top: 22px;
+}
+
+.experience-body h3 {
+  font-size: clamp(28px, 3vw, 38px);
+  letter-spacing: -1.6px;
+  line-height: 1.08;
+}
+
+.experience-org {
+  color: var(--green);
+  font-size: 16px;
+  font-weight: 600;
+  margin-top: 8px;
+}
+
+.experience-details > p {
+  color: #545751;
+  font-size: 15px;
+  line-height: 1.7;
+  margin-bottom: 20px;
+}
+
+.focus-block {
+  margin-top: 34px;
+}
+
+.focus-label {
+  color: #656862;
+  margin-bottom: 16px;
+}
+
+.focus-grid,
+.education-grid {
+  display: grid;
+  gap: 22px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.focus-card {
+  background: #f3f1e7;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 28px 32px;
+}
+
+.focus-card h3 {
+  font-size: 24px;
+  letter-spacing: -1px;
+  margin: 10px 0 12px;
+}
+
+.focus-card > p {
+  color: #60635e;
+  font-size: 14px;
+  line-height: 1.68;
+  margin-bottom: 20px;
+}
+
+.education-card {
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  display: flex;
+  flex-direction: column;
+  padding: 36px 38px;
+}
+
+.education-lime {
+  background: #eef2d9;
+}
+
+.education-warm {
+  background: #f1e9e0;
+}
+
+.education-warm .period-pill {
+  background: #fffdf8;
+}
+
+.education-card h3 {
+  font-size: clamp(25px, 2.6vw, 34px);
+  letter-spacing: -1.4px;
+  line-height: 1.1;
+  margin-top: 22px;
+}
+
+.education-institution {
+  color: var(--green);
+  font-size: 14px;
+  font-weight: 600;
+  margin-top: 8px;
+}
+
+.education-description {
+  color: #60635e;
+  flex: 1;
+  font-size: 14px;
+  line-height: 1.7;
+  margin: 16px 0 24px;
+}
+
 .stack {
   align-items: start;
   display: grid;
@@ -1538,6 +1713,9 @@ footer > a:last-child {
 }
 
 @media (max-width: 900px) {
+  .nav-links {
+    gap: 20px;
+  }
   .hero {
     gap: 50px;
     grid-template-columns: 1fr;
@@ -1553,6 +1731,9 @@ footer > a:last-child {
   }
   .project-grid,
   .about-grid,
+  .experience-body,
+  .focus-grid,
+  .education-grid,
   .project-featured-body,
   .case-meta-strip,
   .case-metrics-row,
@@ -1700,8 +1881,13 @@ footer > a:last-child {
     align-items: start;
     flex-direction: column;
   }
-  .about-card {
+  .about-card,
+  .experience-card,
+  .education-card {
     padding: 27px;
+  }
+  .focus-card {
+    padding: 22px;
   }
   .card-icon {
     margin-bottom: 36px;
