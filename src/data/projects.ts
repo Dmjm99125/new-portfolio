@@ -1,4 +1,6 @@
+import eduece10Image from "../assets/eduece10-colors.jpg";
 import mathVentureImage from "../assets/mathventure-swe.png";
+import theTeachersImage from "../assets/the-teachers.jpg";
 
 export type CaseStudyMetric = {
   value: string;
@@ -137,6 +139,7 @@ export const projects: Project[] = [
     number: "02",
     eyebrow: "Numeracy development",
     title: "The Teachers",
+    image: theTeachersImage,
     description:
       "A learning resource that turns foundational numeracy concepts into a clear, friendly digital experience for young learners.",
     tags: ["Learning design", "HTML", "CSS"],
@@ -149,6 +152,7 @@ export const projects: Project[] = [
     number: "03",
     eyebrow: "Early childhood education",
     title: "Ma’am Jo’s Classroom",
+    image: eduece10Image,
     description:
       "A thoughtful course project for EDUECE10, designed to organize classroom ideas and make educational content feel welcoming.",
     tags: ["Early learning", "HTML", "CSS"],

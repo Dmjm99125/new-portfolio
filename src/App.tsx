@@ -26,6 +26,7 @@ const stack = [
 export default function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeCaseSlug, setActiveCaseSlug] = useState<string | null>(getInitialCaseSlug);
+  const [futureCaseSlug, setFutureCaseSlug] = useState<string | null>(null);
   const [resumeNoticeOpen, setResumeNoticeOpen] = useState(false);
 
   const closeMenu = () => setMenuOpen(false);
@@ -203,136 +204,115 @@ export default function App() {
           </div>
 
           <div className="project-grid">
-            {projects.map((project) => (
-              <article
-                className={`project-card project-${project.variant}${project.featured ? " project-featured" : ""}`}
-                key={project.slug}
-              >
-                <div className="project-top">
-                  <div className="project-top-meta">
-                    <span>{project.number}</span>
-                    {project.caseStudy && (
-                      <span className="project-case-tag">Flagship · Mini case study</span>
-                    )}
+            {projects.map((project) => {
+              const shotWindow = project.image ? (
+                <div className="project-shot-window">
+                  <div className="window-bar">
+                    <i />
+                    <i />
+                    <i />
+                    <span>{project.live.replace(/^https?:\/\//, "").replace(/\/$/, "")}</span>
                   </div>
-                  <a
-                    href={project.live}
-                    target="_blank"
-                    rel="noreferrer"
-                    aria-label={`Open ${project.title} live demo`}
-                  >
-                    <ArrowUpRight />
-                  </a>
+                  <img
+                    src={project.image}
+                    alt={`${project.title} project preview`}
+                    loading="lazy"
+                  />
                 </div>
+              ) : null;
 
-                <div className={project.featured ? "project-featured-body" : ""}>
-                  {project.image ? (
-                    <button
-                      type="button"
-                      className="project-preview project-preview-button"
-                      onClick={() => openCaseStudy(project.slug)}
-                      aria-label={`Read mini case study for ${project.title}`}
-                    >
-                      <div className="project-shot-window">
-                        <div className="window-bar">
-                          <i />
-                          <i />
-                          <i />
-                          <span>{project.live.replace(/^https?:\/\//, "").replace(/\/$/, "")}</span>
-                        </div>
-                        <img
-                          src={project.image}
-                          alt={`${project.title} project preview`}
-                          loading="lazy"
-                        />
-                      </div>
-                      <span className="project-preview-pill">
-                        Read mini case study <ArrowUpRight />
-                      </span>
-                    </button>
-                  ) : (
-                    <div className="project-preview">
-                      {project.variant === "yellow" ? (
-                        <div className="math-sheet">
-                          <span className="mini-label">Let’s count!</span>
-                          <strong>4 + 3 = ?</strong>
-                          <div className="dots">
-                            <i />
-                            <i />
-                            <i />
-                            <i />
-                            <i />
-                            <i />
-                            <i />
-                          </div>
-                        </div>
-                      ) : (
-                        <div className="class-sheet">
-                          <div>
-                            <span>Learn</span>
-                            <span>Play</span>
-                            <span>Grow</span>
-                          </div>
-                          <strong>
-                            Every little step
-                            <br />
-                            is a big discovery.
-                          </strong>
-                          <div className="rainbow">
-                            <i />
-                            <i />
-                            <i />
-                          </div>
-                        </div>
+              return (
+                <article
+                  className={`project-card project-${project.variant}${project.featured ? " project-featured" : ""}`}
+                  key={project.slug}
+                >
+                  <div className="project-top">
+                    <div className="project-top-meta">
+                      <span>{project.number}</span>
+                      {project.caseStudy && (
+                        <span className="project-case-tag">Flagship · Mini case study</span>
                       )}
                     </div>
-                  )}
+                    <a
+                      href={project.live}
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label={`Open ${project.title} live demo`}
+                      title={`Open ${project.title} live demo`}
+                    >
+                      <span className="live-dot" aria-hidden="true" /> Live demo <ArrowUpRight />
+                    </a>
+                  </div>
 
-                  <div className="project-copy">
-                    <p className="eyebrow">{project.eyebrow}</p>
-                    {project.caseStudy ? (
-                      <h3>
-                        <button
-                          type="button"
-                          className="project-title-trigger"
-                          onClick={() => openCaseStudy(project.slug)}
+                  <div className={project.featured ? "project-featured-body" : ""}>
+                    {shotWindow && (
+                      <button
+                        type="button"
+                        className="project-preview project-preview-button"
+                        onClick={() => {
+                          if (project.caseStudy) {
+                            openCaseStudy(project.slug);
+                          } else {
+                            setFutureCaseSlug((current) =>
+                              current === project.slug ? null : project.slug,
+                            );
+                          }
+                        }}
+                        aria-expanded={
+                          project.caseStudy ? undefined : futureCaseSlug === project.slug
+                        }
+                        aria-label={
+                          project.caseStudy
+                            ? `Read mini case study for ${project.title}`
+                            : `Case study status for ${project.title}`
+                        }
+                      >
+                        {shotWindow}
+                        <span
+                          className={`project-preview-pill${
+                            project.caseStudy ? "" : " project-preview-pill-upcoming"
+                          }`}
                         >
-                          {project.title}
-                        </button>
-                      </h3>
-                    ) : (
-                      <h3>{project.title}</h3>
+                          {project.caseStudy ? (
+                            <>
+                              Read mini case study <ArrowUpRight />
+                            </>
+                          ) : (
+                            "Case study · Future update"
+                          )}
+                        </span>
+                      </button>
                     )}
-                    <p>{project.description}</p>
 
-                    <div className="project-footer">
-                      <div className="tag-list">
-                        {project.tags.map((tag) => (
-                          <span key={tag}>{tag}</span>
-                        ))}
-                      </div>
-                      <div className="project-actions">
-                        {project.caseStudy && (
+                    <div className="project-copy">
+                      <p className="eyebrow">{project.eyebrow}</p>
+                      {project.caseStudy ? (
+                        <h3>
                           <button
                             type="button"
-                            className="case-open-btn"
+                            className="project-title-trigger"
                             onClick={() => openCaseStudy(project.slug)}
                           >
-                            Read mini case study <ArrowUpRight />
+                            {project.title}
                           </button>
-                        )}
+                        </h3>
+                      ) : (
+                        <h3>{project.title}</h3>
+                      )}
+                      <p>{project.description}</p>
+                      {!project.caseStudy && futureCaseSlug === project.slug && (
+                        <p className="project-case-note" role="status">
+                          Mini case study for {project.title} is planned for a future update.
+                        </p>
+                      )}
+
+                      <div className="project-footer">
+                        <div className="tag-list">
+                          {project.tags.map((tag) => (
+                            <span key={tag}>{tag}</span>
+                          ))}
+                        </div>
                         <div className="project-links-row">
-                          {project.featured && (
-                            <a
-                              className="code-link live-link"
-                              href={project.live}
-                              target="_blank"
-                              rel="noreferrer"
-                            >
-                              <span className="live-dot" aria-hidden="true" /> Live demo{" "}
-                              <ArrowUpRight />
-                            </a>
-                          )}
                           <a
                             className="code-link"
                             href={project.code}
@@ -356,9 +336,9 @@ export default function App() {
                       </div>
                     </div>
                   </div>
-                </div>
-              </article>
-            ))}
+                </article>
+              );
+            })}
           </div>
         </section>
 
