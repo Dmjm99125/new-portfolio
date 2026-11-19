@@ -78,7 +78,7 @@ export const projects: Project[] = [
     caseStudy: {
       subtitle:
         "Addressing early numeracy and DepEd curriculum sequencing gaps in the Philippines through 9 offline-first, gamified kindergarten math modules.",
-      role: "Lead Software Engineer & Test Architect",
+      role: "Lead Game Developer",
       context: "Backed by 'Counting the Uncounted' ECEd Research · New Cabalan Elementary School",
       focus: "9 DepEd Numeracy Modules · SQLite OPFS / Tauri Offline Sync",
       metrics: [
